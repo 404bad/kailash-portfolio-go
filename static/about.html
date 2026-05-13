@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Kailash Badu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e17; --surface: #111826; --border: #1e2d45;
+      --accent: #00d4ff; --accent2: #7b61ff; --green: #00ff88;
+      --text: #e2e8f0; --muted: #64748b;
+      --mono: 'Space Mono', monospace; --sans: 'Syne', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none; z-index: 0;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(10,14,23,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-family: var(--mono); font-size: 0.9rem; color: var(--accent); letter-spacing: 0.1em; }
+    .logo span { color: #00ff88; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto;
+      padding: 8rem 3rem 6rem;
+    }
+    .section-label {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--accent);
+      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+      letter-spacing: -0.02em; margin-bottom: 1rem;
+    }
+    .subtitle { font-size: 1.1rem; color: var(--muted); margin-bottom: 3rem; line-height: 1.6; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 4rem; }
+    .about-block { background: var(--surface); padding: 2rem; }
+    .about-block h3 { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+    .about-block p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .about-block .highlight { color: var(--text); font-weight: 600; }
+
+    h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+
+    .experience-card {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 2rem; margin-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .experience-card:hover { border-color: var(--accent); }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+    .exp-title { font-size: 1.1rem; font-weight: 600; }
+    .exp-date { font-family: var(--mono); font-size: 0.72rem; color: var(--green); padding: 0.2rem 0.6rem; border: 1px solid rgba(0,255,136,0.3); }
+    .exp-company { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); margin-bottom: 1rem; }
+    .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .exp-list li { font-size: 0.88rem; color: var(--muted); line-height: 1.5; padding-left: 1.2rem; position: relative; }
+    .exp-list li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 0.15rem; }
+
+    .edu-card {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 2rem; margin-top: 3rem;
+    }
+    .edu-degree { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .edu-school { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); margin-bottom: 0.5rem; }
+    .edu-status { font-family: var(--mono); font-size: 0.7rem; color: var(--green); }
+
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-left { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.5rem; }
+      .page { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="logo">KB<span>.</span>DEV</div>
+  <ul class="nav-links">
+    <li><a href="/">~/home</a></li>
+    <li><a href="/about" class="active">~/about</a></li>
+    <li><a href="/courses">~/certifications</a></li>
+    <li><a href="/contact">~/contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="section-label">// ABOUT ME</div>
+  <h1>Who I Am</h1>
+  <p class="subtitle">Web Developer with 2+ years of experience at Jasper IT, now transitioning into DevOps Engineering — building real cloud infrastructure, not just reading about it.</p>
+
+  <div class="about-grid">
+    <div class="about-block">
+      <h3>LOCATION</h3>
+      <p><span class="highlight">Lalitpur, Nepal</span><br/>Open to remote DevOps roles globally</p>
+    </div>
+    <div class="about-block">
+      <h3>CONTACT</h3>
+      <p>
+        <span class="highlight">badukailash001@gmail.com</span><br/>
+        +977 9843952547
+      </p>
+    </div>
+    <div class="about-block">
+      <h3>FOCUS AREA</h3>
+      <p>DevOps Engineering — CI/CD, Cloud Infrastructure, Container Orchestration, GitOps</p>
+    </div>
+    <div class="about-block">
+      <h3>WEBSITE</h3>
+      <p><a href="https://www.kailashbadu.com.np" target="_blank" style="color:var(--accent);text-decoration:none">www.kailashbadu.com.np</a></p>
+    </div>
+  </div>
+
+  <h2>Experience</h2>
+
+  <div class="experience-card">
+    <div class="exp-header">
+      <div class="exp-title">Web Developer</div>
+      <div class="exp-date">MAY 2023 — PRESENT</div>
+    </div>
+    <div class="exp-company">Jasper IT · Lalitpur, Nepal</div>
+    <ul class="exp-list">
+      <li>Build static websites using PHP, HTML, CSS, and JavaScript with responsive, cross-browser compatible layouts</li>
+      <li>Develop dynamic websites by customizing WordPress themes and WooCommerce plugins for eCommerce</li>
+      <li>Handle troubleshooting and error resolution to maintain smooth, performant web applications</li>
+      <li>Collaborate on client requirements to deliver tailored web solutions aligned with business goals</li>
+    </ul>
+  </div>
+
+  <h2 style="margin-top:3rem">Education</h2>
+
+  <div class="edu-card">
+    <div class="edu-degree">Bachelor of Science in Computer Science &amp; Information Technology</div>
+    <div class="edu-school">Tribhuvan University — Kathmandu, Nepal</div>
+    <div class="edu-status">◉ AWAITING FINAL RESULTS</div>
+  </div>
+
+  <div class="edu-card" style="margin-top:1px">
+    <div class="edu-degree">DevOps Training Program</div>
+    <div class="edu-school">Broadways Infosys — Kathmandu, Nepal</div>
+    <div class="edu-status">◉ COMPLETED</div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-top:0.75rem;line-height:1.6">Structured DevOps program covering CI/CD pipelines, cloud infrastructure, containerization, Jenkins, Docker, AWS services, Linux administration, and deployment automation.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">© 2025 Kailash Badu — Lalitpur, Nepal</div>
+  <div class="footer-links">
+    <a href="/">home</a>
+    <a href="/about">about</a>
+    <a href="/contact">contact</a>
+  </div>
+</footer>
+</body>
+</html>

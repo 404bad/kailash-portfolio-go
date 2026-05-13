@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Kailash Badu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e17; --surface: #111826; --border: #1e2d45;
+      --accent: #00d4ff; --accent2: #7b61ff; --green: #00ff88;
+      --text: #e2e8f0; --muted: #64748b;
+      --mono: 'Space Mono', monospace; --sans: 'Syne', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(10,14,23,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-family: var(--mono); font-size: 0.9rem; color: var(--accent); letter-spacing: 0.1em; }
+    .logo span { color: #00ff88; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 8rem 3rem 6rem; }
+    .section-label { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .subtitle { font-size: 1.1rem; color: var(--muted); margin-bottom: 3rem; line-height: 1.6; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 3rem; }
+    .contact-item {
+      background: var(--surface); padding: 2rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      text-decoration: none; color: inherit;
+      transition: background 0.2s;
+    }
+    a.contact-item:hover { background: #151f30; }
+    .contact-label { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.15em; }
+    .contact-value { font-size: 0.95rem; color: var(--text); font-weight: 600; word-break: break-all; }
+    .contact-arrow { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); margin-top: 0.25rem; }
+
+    .terminal {
+      background: var(--surface); border: 1px solid var(--border); padding: 2rem;
+      font-family: var(--mono); font-size: 0.82rem; line-height: 2;
+    }
+    .terminal-header { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+    .term-line { color: var(--muted); }
+    .term-line .prompt { color: var(--green); }
+    .term-line .cmd { color: var(--text); }
+    .term-line .output { color: var(--accent); }
+    .term-line .comment { color: var(--muted); opacity: 0.6; }
+
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-left { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.5rem; }
+      .page { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="logo">KB<span>.</span>DEV</div>
+  <ul class="nav-links">
+    <li><a href="/">~/home</a></li>
+    <li><a href="/about">~/about</a></li>
+    <li><a href="/courses">~/certifications</a></li>
+    <li><a href="/contact" class="active">~/contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="section-label">// CONTACT</div>
+  <h1>Get In Touch</h1>
+  <p class="subtitle">Open to DevOps and cloud engineering roles. Feel free to reach out — I respond promptly.</p>
+
+  <div class="contact-grid">
+    <a class="contact-item" href="mailto:badukailash001@gmail.com">
+      <div class="contact-label">EMAIL</div>
+      <div class="contact-value">badukailash001@gmail.com</div>
+      <div class="contact-arrow">→ send email</div>
+    </a>
+    <div class="contact-item">
+      <div class="contact-label">PHONE</div>
+      <div class="contact-value">+977 9843952547</div>
+      <div class="contact-arrow" style="color:var(--muted)">Nepal (NPT)</div>
+    </div>
+    <a class="contact-item" href="https://www.kailashbadu.com.np" target="_blank">
+      <div class="contact-label">WEBSITE</div>
+      <div class="contact-value">www.kailashbadu.com.np</div>
+      <div class="contact-arrow">→ visit site</div>
+    </a>
+    <div class="contact-item">
+      <div class="contact-label">LOCATION</div>
+      <div class="contact-value">Lalitpur, Nepal</div>
+      <div class="contact-arrow" style="color:var(--muted)">Remote-friendly</div>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-header">
+      <div class="dot dot-red"></div>
+      <div class="dot dot-yellow"></div>
+      <div class="dot dot-green"></div>
+    </div>
+    <div class="term-line"><span class="prompt">kailash@devops:~$</span> <span class="cmd">whoami</span></div>
+    <div class="term-line"><span class="output">kailash-badu — aspiring-devops-engineer</span></div>
+    <div class="term-line">&nbsp;</div>
+    <div class="term-line"><span class="prompt">kailash@devops:~$</span> <span class="cmd">cat availability.txt</span></div>
+    <div class="term-line"><span class="output">STATUS: open-to-devops-roles</span></div>
+    <div class="term-line"><span class="output">REMOTE: yes</span></div>
+    <div class="term-line"><span class="output">TIMEZONE: Asia/Kathmandu (UTC+5:45)</span></div>
+    <div class="term-line">&nbsp;</div>
+    <div class="term-line"><span class="comment"># Reach out via email for quickest response</span></div>
+    <div class="term-line"><span class="prompt">kailash@devops:~$</span> <span class="cmd">█</span></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">© 2025 Kailash Badu — Lalitpur, Nepal</div>
+  <div class="footer-links">
+    <a href="/">home</a>
+    <a href="/about">about</a>
+    <a href="/courses">certifications</a>
+  </div>
+</footer>
+</body>
+</html>

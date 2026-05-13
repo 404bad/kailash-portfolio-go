@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kailash Badu — DevOps Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --surface: #111826;
+      --border: #1e2d45;
+      --accent: #00d4ff;
+      --accent2: #7b61ff;
+      --green: #00ff88;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --mono: 'Space Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(10,14,23,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+    .logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-content { max-width: 680px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      border: 1px solid rgba(0,255,136,0.3);
+      padding: 0.35rem 0.8rem;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      letter-spacing: 0.1em;
+    }
+    .badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    h1 {
+      font-family: var(--sans);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    h1 .name { display: block; }
+    h1 .role {
+      display: block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      padding: 0.8rem 1.8rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      font-weight: 700;
+    }
+    .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* SKILLS TICKER */
+    .ticker {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 3rem;
+      animation: ticker 25s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .ticker-item span { color: var(--accent); }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* SECTIONS */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    /* SKILLS GRID */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .skill-card {
+      background: var(--surface);
+      padding: 1.8rem;
+      transition: background 0.2s;
+    }
+    .skill-card:hover { background: #151f30; }
+    .skill-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .skill-title {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      color: var(--accent);
+      border-radius: 1px;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .project-card {
+      background: var(--surface);
+      padding: 2rem;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-card:hover { background: #151f30; }
+    .project-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 100%;
+    }
+    .footer-left {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.5rem; }
+      .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">KB<span>.</span>DEV</div>
+  <ul class="nav-links">
+    <li><a href="/">~/home</a></li>
+    <li><a href="/about">~/about</a></li>
+    <li><a href="/courses">~/certifications</a></li>
+    <li><a href="/contact">~/contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge">AVAILABLE FOR DEVOPS ROLES</div>
+    <h1>
+      <span class="name">Kailash Badu</span>
+      <span class="role">DevOps Engineer</span>
+    </h1>
+    <p class="hero-desc">
+      Web Developer transitioning into DevOps — building automated pipelines,
+      cloud infrastructure on AWS, and container orchestration with Kubernetes.
+      Based in Lalitpur, Nepal.
+    </p>
+    <div class="hero-actions">
+      <a href="/about" class="btn btn-primary">VIEW PROFILE</a>
+      <a href="/contact" class="btn btn-outline">GET IN TOUCH</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span>▸</span> AWS EKS</span>
+    <span class="ticker-item"><span>▸</span> Docker &amp; Kubernetes</span>
+    <span class="ticker-item"><span>▸</span> GitHub Actions</span>
+    <span class="ticker-item"><span>▸</span> ArgoCD GitOps</span>
+    <span class="ticker-item"><span>▸</span> Terraform</span>
+    <span class="ticker-item"><span>▸</span> Helm Charts</span>
+    <span class="ticker-item"><span>▸</span> CI/CD Pipelines</span>
+    <span class="ticker-item"><span>▸</span> Linux &amp; Bash</span>
+    <span class="ticker-item"><span>▸</span> AWS EKS</span>
+    <span class="ticker-item"><span>▸</span> Docker &amp; Kubernetes</span>
+    <span class="ticker-item"><span>▸</span> GitHub Actions</span>
+    <span class="ticker-item"><span>▸</span> ArgoCD GitOps</span>
+    <span class="ticker-item"><span>▸</span> Terraform</span>
+    <span class="ticker-item"><span>▸</span> Helm Charts</span>
+    <span class="ticker-item"><span>▸</span> CI/CD Pipelines</span>
+    <span class="ticker-item"><span>▸</span> Linux &amp; Bash</span>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">// TECHNICAL SKILLS</div>
+  <h2>What I Work With</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-title">CLOUD PLATFORMS</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.5">AWS infrastructure including compute, networking, storage, and managed services.</p>
+      <div class="skill-tags">
+        <span class="tag">EC2</span><span class="tag">EKS</span><span class="tag">RDS</span>
+        <span class="tag">S3</span><span class="tag">IAM</span><span class="tag">VPC</span>
+        <span class="tag">CloudFront</span><span class="tag">ECR</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐳</div>
+      <div class="skill-title">CONTAINERS &amp; ORCHESTRATION</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.5">Containerizing apps and managing workloads at scale with Kubernetes.</p>
+      <div class="skill-tags">
+        <span class="tag">Docker</span><span class="tag">Kubernetes</span>
+        <span class="tag">Helm</span><span class="tag">HPA</span>
+        <span class="tag">Ingress</span><span class="tag">Amazon EKS</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-title">CI/CD &amp; GITOPS</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.5">Fully automated pipelines from commit to production with zero manual steps.</p>
+      <div class="skill-tags">
+        <span class="tag">GitHub Actions</span><span class="tag">Jenkins</span>
+        <span class="tag">ArgoCD</span><span class="tag">CodeBuild</span>
+        <span class="tag">CodeDeploy</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🏗️</div>
+      <div class="skill-title">INFRASTRUCTURE AS CODE</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.5">Provisioning and configuring infrastructure programmatically and repeatably.</p>
+      <div class="skill-tags">
+        <span class="tag">Terraform</span><span class="tag">Ansible</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <div class="skill-title">SCRIPTING &amp; LINUX</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.5">Automating system tasks, managing services, and building tooling scripts.</p>
+      <div class="skill-tags">
+        <span class="tag">Python</span><span class="tag">Bash</span>
+        <span class="tag">Ubuntu</span><span class="tag">SSH</span>
+        <span class="tag">systemd</span><span class="tag">cron</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-title">WEB DEVELOPMENT</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.5">2+ years building web apps professionally at Jasper IT.</p>
+      <div class="skill-tags">
+        <span class="tag">PHP</span><span class="tag">ReactJS</span>
+        <span class="tag">HTML/CSS</span><span class="tag">JavaScript</span>
+        <span class="tag">WordPress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">// PROJECTS</div>
+  <h2>Featured Work</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">01 — END-TO-END PIPELINE</div>
+      <div class="project-title">Message Board — DevOps Pipeline</div>
+      <p class="project-desc">Flask + MySQL app with fully automated CI/CD. Single git tag push triggers build → push → deploy on AWS EKS with ArgoCD GitOps. Zero manual steps.</p>
+      <div class="skill-tags">
+        <span class="tag">Docker</span><span class="tag">EKS</span>
+        <span class="tag">ArgoCD</span><span class="tag">Helm</span>
+        <span class="tag">GitHub Actions</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">02 — AWS DEPLOYMENT</div>
+      <div class="project-title">Spring Boot Banking App on AWS</div>
+      <p class="project-desc">Dockerized Spring Boot + MySQL banking app deployed on EC2 with Amazon RDS as production database. Configured IAM roles, security groups, and VPC networking.</p>
+      <div class="skill-tags">
+        <span class="tag">EC2</span><span class="tag">RDS</span>
+        <span class="tag">Docker</span><span class="tag">IAM</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">03 — CI/CD WORKFLOWS</div>
+      <div class="project-title">GitHub Actions Multi-Environment Pipeline</div>
+      <p class="project-desc">Separate dev/prod workflows targeting DockerHub and Amazon ECR. Includes documented error resolutions for SSH timeouts and security group gaps.</p>
+      <div class="skill-tags">
+        <span class="tag">GitHub Actions</span><span class="tag">ECR</span>
+        <span class="tag">Docker Hub</span><span class="tag">EC2</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">04 — AWS CODEPIPELINE</div>
+      <div class="project-title">AWS CodePipeline End-to-End CI/CD</div>
+      <p class="project-desc">Complete AWS-native pipeline with CodeBuild, CodeDeploy on EC2. Managed buildspec.yml configs and produced reusable infrastructure reference guides.</p>
+      <div class="skill-tags">
+        <span class="tag">CodePipeline</span><span class="tag">CodeBuild</span>
+        <span class="tag">CodeDeploy</span><span class="tag">RDS</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">05 — TERRAFORM IaC</div>
+      <div class="project-title">S3 Static Website with Terraform</div>
+      <p class="project-desc">Provisioned AWS S3 static hosting entirely through Terraform — zero manual console steps. Full documentation published on GitHub as a reusable reference.</p>
+      <div class="skill-tags">
+        <span class="tag">Terraform</span><span class="tag">S3</span>
+        <span class="tag">IAM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">© 2025 Kailash Badu — Lalitpur, Nepal</div>
+  <div class="footer-links">
+    <a href="/">home</a>
+    <a href="/about">about</a>
+    <a href="/contact">contact</a>
+    <a href="https://www.kailashbadu.com.np" target="_blank">website</a>
+  </div>
+</footer>
+
+</body>
+</html>
