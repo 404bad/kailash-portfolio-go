@@ -68,7 +68,7 @@ PORT=3000 go run main.go
 
 ## Step 1: Containarize the application and it dependendcies
 
-```bash
+```Dockerfile
 FROM golang:1.21-alpine  as base
 WORKDIR /app
 COPY go.mod ./
@@ -83,8 +83,19 @@ COPY --from=base /app/static ./static
 EXPOSE 8080
 CMD ["./dist"]
 ```
+```bash
+docker build -t kailashbadu/kailash-portfolio-go:v1 .
+
+docker run -itd -p 8080:8080 kailashbadu/kailash-portfolio-go:v1
+
+check http://localhost:8080
+
+docker login
+
+docker push kailashbadu/kailash-portfolio-go:v1
 
 
+```
 
 
 
