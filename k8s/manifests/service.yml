@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kailash-portfolio-service
+  namespace: portfolio
+  labels:
+    app: kailash-portfolio-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080 
+      protocol: TCP
+  selector:
+    app: kailash-portfolio
+  type: ClusterIP
