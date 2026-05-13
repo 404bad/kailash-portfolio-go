@@ -32,6 +32,12 @@ cd portfolio
 # Run the server
 go run main.go
 
+or 
+
+go build -o dist
+
+./dist
+
 # Server starts at:
 # 🚀 Kailash Badu Portfolio running at http://localhost:8080
 ```
