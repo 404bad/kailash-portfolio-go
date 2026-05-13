@@ -63,6 +63,32 @@ go test ./...
 PORT=3000 go run main.go
 ```
 
+==================================== DevOps part ==========================================
+# DevOps
+
+## Step 1: Containarize the application and it dependendcies
+
+```bash
+FROM golang:1.21-alpine  as base
+WORKDIR /app
+COPY go.mod ./
+RUN go mod download
+COPY . .
+RUN go build -o dist
+
+FROM gcr.io/distroless/base
+COPY --from=base /app/dist .
+COPY --from=base /app/static ./static
+
+EXPOSE 8080
+CMD ["./dist"]
+```
+
+
+
+
+
+
 ##  Tech Stack
 
 - **Language:** Go (stdlib only — `net/http`)
