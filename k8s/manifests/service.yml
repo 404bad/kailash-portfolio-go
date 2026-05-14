@@ -6,10 +6,12 @@ metadata:
   labels:
     app: kailash-portfolio-service
 spec:
-  ports:
-    - port: 80
-      targetPort: 8080 
-      protocol: TCP
   selector:
     app: kailash-portfolio
   type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      #nodePort: 30002
+

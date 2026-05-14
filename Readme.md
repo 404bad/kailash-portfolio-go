@@ -32,7 +32,7 @@ cd portfolio
 # Run the server
 go run main.go
 
-or 
+or
 
 go build -o dist
 
@@ -42,20 +42,20 @@ go build -o dist
 # 🚀 Kailash Badu Portfolio running at http://localhost:8080
 ```
 
-##  Running Tests
+## Running Tests
 
 ```bash
 go test ./...
 ```
 
-##  Routes
+## Routes
 
-| Route        | Page                        |
-|--------------|-----------------------------|
-| `/`          | Home — landing & projects   |
-| `/about`     | About, experience, education|
-| `/courses`   | Certifications & training   |
-| `/contact`   | Contact information         |
+| Route      | Page                         |
+| ---------- | ---------------------------- |
+| `/`        | Home — landing & projects    |
+| `/about`   | About, experience, education |
+| `/courses` | Certifications & training    |
+| `/contact` | Contact information          |
 
 ## Custom Port
 
@@ -64,6 +64,7 @@ PORT=3000 go run main.go
 ```
 
 ==================================== DevOps part ==========================================
+
 # DevOps
 
 ## Step 1: Containarize the application and it dependendcies
@@ -83,6 +84,7 @@ COPY --from=base /app/static ./static
 EXPOSE 8080
 CMD ["./dist"]
 ```
+
 ```bash
 docker build -t kailashbadu/kailash-portfolio-go:v1 .
 
@@ -99,17 +101,19 @@ docker push kailashbadu/kailash-portfolio-go:v1
 
 ## step 2: kubernets
 
-when we are writing kubernetes deployment out of the box behaviour is the kubernets will try to pull the images from image registry.OFC we can also use  the image form local but it is pratice to pull the image form registry
+when we are writing kubernetes deployment out of the box behaviour is the kubernets will try to pull the images from image registry.OFC we can also use the image form local but it is pratice to pull the image form registry
 so we need to push it to registry either ecr or dockerhub
 
 ```bash
 mkdir -p  k8s/manifests
 
 ```
- in kubernetes service discovery happend using selector and labels
+
+in kubernetes service discovery happend using selector and labels
 
 deployment.yml
 
+```yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -168,12 +172,11 @@ spec:
             initialDelaySeconds: 3
             periodSeconds: 10
             failureThreshold: 3
-
-
-
+```
 
 service.yml
 
+```yml
 apiVersion: v1
 kind: Service
 metadata:
@@ -184,19 +187,21 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 8080 
+      targetPort: 8080
       protocol: TCP
   selector:
     app: kailash-portfolio
   type: ClusterIP
-
+```
 
 ingress.yml
 
+```yml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: kailash-portfolio-ingress
+
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
@@ -212,14 +217,51 @@ spec:
                 name: kailash-portfolio-service
                 port:
                   number: 80
+```
+
+```bash
+kubectl create namespace portfolio
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+kubectl apply -f ingress.yml
+
+kubectl get ns
+
+minikube addons enable ingress
 
 
-##  Tech Stack
+
+kubectl get pods -n ingress-nginx
+kubectl get deployment -n portfolio
+kubectl get svc -n portfolio
+kubectl get ing -n portfolio
+
+
+minikube ip
+
+sudo vim /etc/hosts
+
+192.168.49.2 kailash-portfolio.local
+
+http://kailash-portfolio.local
+
+```
+
+```bash
+minikube stop # This just pauses the cluster.
+minikube delete # Delete Minikube cluster (recommended full reset)
+
+# Full cleanup (Docker + Minikube))
+minikube delete --all --purge
+docker system prune -af
+docker volume prune -f
+docker network prune -f
+
+
+```
+
+## Tech Stack
 
 - **Language:** Go (stdlib only — `net/http`)
 - **Frontend:** HTML, CSS, vanilla JS
-- **Fonts:** Space Mono + Syne (Google Fonts)
-
-##  License
-
-MIT — see [LICENSE](LICENSE)
+- **DevOps:** Docker,kubernetes
